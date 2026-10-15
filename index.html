@@ -433,10 +433,11 @@ function render(){
   observe();
 }
 
+function plural(n, f){ const m = n % 100; if(m > 10 && m < 20) return f[2]; const k = n % 10; return k === 1 ? f[0] : (k > 1 && k < 5 ? f[1] : f[2]); }
 function totals(){
   let n = 0, s = 0;
   cart.forEach(v => { n += v.q; s += v.q * v.it.p; });
-  $("#barN").textContent = n + (n % 10 === 1 && n % 100 !== 11 ? " позиция" : " позиций");
+  $("#barN").textContent = n + " " + plural(n, ["позиция","позиции","позиций"]);
   $("#barS").textContent = s.toLocaleString('ru') + " ₽";
   $("#bar").classList.toggle("show", n > 0);
   return { n, s };
